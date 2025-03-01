@@ -1,4 +1,4 @@
-package com.example.notes;
+package com.example.notes.security;
 
 
 import org.springframework.context.annotation.Bean;
@@ -18,9 +18,10 @@ public class SecurityConfig {
 		requests.requestMatchers("/contacts").permitAll()
 				.requestMatchers("/admin").denyAll()
 				.anyRequest().authenticated());
+		http.csrf(csrf->csrf.disable());
 		http.formLogin(withDefaults());
 		http.httpBasic(withDefaults());
-		//http.sessionManagement(session->session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+		http.sessionManagement(session->session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 		return http.build();
 	}
 }
